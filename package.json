@@ -1,0 +1,17 @@
+{
+  "name": "simple-client-server",
+  "author": "Paul Demchuk <pademchuk@gmail.com>",
+  "description": "a simple client server example",
+  "contributors": [
+    {
+      "name": "Paul Demchuk",
+      "email": "pademchuk@gmail.com"
+    }
+  ],
+
+  "dependencies" : {
+    "express": "*",
+    "async": "*",
+    "needle": "*"
+  }
+}
