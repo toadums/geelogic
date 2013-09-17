@@ -1,5 +1,5 @@
 Queue = require './queue'
-
+Job = require './job'
 class Client
   constructor: (data) ->
 
@@ -8,7 +8,13 @@ class Client
     @name     = data.name
     @tasks    = new Queue
 
-  queueCount: () =>
-    @tasks.running
+  ready: () =>
+    @tasks.running is 0
+
+  start: (data) =>
+    @tasks.enqueue new Job(data)
+
+  getJobs: (owner) =>
+    [@tasks.peek()]
 
 module.exports = Client

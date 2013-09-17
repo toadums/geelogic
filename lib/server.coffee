@@ -13,12 +13,16 @@ Client = require './client'
 class Server
   constructor: (app) ->
     @app = app
-    @routes = new Routes @
     @server = http.createServer @app
 
     # Store the IP and Name of all clients
     @clients = []
     @clients.push new Client('1.1.1.1', "test")
+
+    @routes = new Routes @
+  newJob: (data) =>
+    if @clients[0].ready
+      @clients[0].start data
 
 
 port = 3000
