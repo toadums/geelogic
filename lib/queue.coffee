@@ -18,12 +18,7 @@ class queue_me
 	peek: () =>
 		@stack[0]
 
-
-meow = new queue_me
-
-meow.enqueue([0, "whole process"])
-console.log meow.stack[0][0]
-console.log meow.peek()
-
 # add a process to the queue by writing the attributes in a list like this:
 # meow.enqueue([<id>, <process>])
+
+module.exports = queue_me

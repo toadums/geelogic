@@ -1,21 +1,29 @@
+# NPM Includes
 express = require 'express'
 http = require 'http'
 readline = require 'readline'
 async = require 'async'
 needle = require 'needle'
+_ = require 'underscore'
 
-root.items = [0,1,2]
-
+# Our Includes
 Routes = require './routes'
+Client = require './client'
+
+class Server
+  constructor: (app) ->
+    @app = app
+    @routes = new Routes @
+    @server = http.createServer @app
+
+    # Store the IP and Name of all clients
+    @clients = []
+    @clients.push new Client('1.1.1.1', "test")
+
 
 port = 3000
-
 app = express()
-
-server = http.createServer app
-
 app.use express.bodyParser()
-
-routes = new Routes app
-
 app.listen port
+
+server = new Server app
