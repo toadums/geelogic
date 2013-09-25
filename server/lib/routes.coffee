@@ -5,7 +5,6 @@ class Routes
     {
       # Variables
       @app
-      @queue
       @clients
 
       # Methods

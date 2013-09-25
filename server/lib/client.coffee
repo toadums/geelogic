@@ -1,18 +1,31 @@
-Queue = require './queue'
-Job = require './job'
+# NPM INCLUDES
+needle = require 'needle'
+
+# Our Includes
+Queue = require '../../shared/queue'
+Job = require '../../shared/job'
+
 class Client
   constructor: (data) ->
 
     # Will want to be smart eventually and make sure there are no duplicates
     @address  = data.address
     @name     = data.name
-    @tasks    = new Queue
 
-  ready: () =>
-    @tasks.running is 0
+  ready: (data, cb) =>
+    needle.get "#{@address}/job/count", (err, res, body) =>
+
+      if res.statusCode isnt 200 then console.log "There was an error in Client.ready"
+      else if body.jobs is 0
+        @start data
+      else
+        cb()
 
   start: (data) =>
-    @tasks.enqueue new Job(data)
+    job = new Job(data)
+
+    needle.post "#{@address}/job/new", job, (err, response, body) =>
+      console.log body
 
   getJobs: (owner) =>
     [@tasks.peek()]

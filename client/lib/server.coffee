@@ -1,37 +1,30 @@
 # NPM Includes
 express = require 'express'
 http = require 'http'
-readline = require 'readline'
 async = require 'async'
 needle = require 'needle'
 _ = require 'underscore'
 
 # Our Includes
 Routes = require './routes'
-Client = require './client'
+Queue = require '../../shared/queue'
+
+if (args = process.argv).length isnt 3
+  throw new Error "Must pass in the port!\nUsage: $ <coffee, nodemon> server.coffee <port>"
+
+if isNaN(port = process.argv[2])
+  throw new Error "Port must be a number"
 
 class Server
   constructor: (app) ->
     @app = app
     @server = http.createServer @app
 
-    # Store the IP and Name of all clients
-    @clients = []
-    @clients.push new Client({address: 'localhost:3001', name: "test"})
+    @queue = new Queue
 
     @routes = new Routes @
 
-  newJob: (data) =>
-
-    async.each(
-      @clients
-      (client, cb) =>
-        client.ready data, cb
-      (err) =>
-        if err then console.log err
-      )
-
-port = 3000
+port = port
 app = express()
 app.use express.bodyParser()
 app.listen port

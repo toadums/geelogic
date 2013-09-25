@@ -7,10 +7,18 @@ class queue_me
 		@running = 0 # store !0 if the process is running
 
 	enqueue: (element) =>
+
 		@stack.push(element)
 
-	dequeue: () =>
-		@stack.splice(0, 1) if not @isempty()
+	dequeue: (job) =>
+		if job
+			index = @stack.indexOf job
+			return if index is - 1
+
+			@stack.splice(index, 0)
+
+		else
+			@stack.splice(0, 1) if not @isempty()
 
 	isempty: () =>
 		if @stack.length then false else true

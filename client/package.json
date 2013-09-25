@@ -1,7 +1,7 @@
 {
   "name": "simple-client-server",
   "author": "Paul Demchuk <pademchuk@gmail.com>",
-  "description": "The server for GEE",
+  "description": "The client for GEE",
   "contributors": [
     {
       "name": "Paul Demchuk",
