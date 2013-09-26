@@ -1,0 +1,1 @@
+curl -X POST --data @f1.json http://localhost:3000/job/new --header "Content-Type:application/json"

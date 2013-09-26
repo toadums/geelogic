@@ -1,0 +1,8 @@
+{
+  "data" :
+    "
+for i in [0..5]\n
+  console.log i",
+  "name" : "hello.coffee",
+  "owner" : "diddy"
+}
