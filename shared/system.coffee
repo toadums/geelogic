@@ -5,6 +5,7 @@ child = require 'child_process'
 class System
   constructor: () ->
 
+  @output = ""
 
   @run: (job, cb) =>
 
@@ -19,13 +20,18 @@ class System
           when 'coffee'
             job = child.spawn "coffee", [job.name]
           when 'py'
-            job = child.spawn "py", [job.name]
+            job = child.spawn "python", [job.name]
 
-        job.on "exit", cb
+        job.on "exit", () =>
+          job.output = @output
+          @output = ""
+          cb()
+
         job.stdout.on "data", (data) =>
-          console.log data.toString()
+          @output = "#{@output}#{data.toString()}"
+
         job.stderr.on "data", (data) =>
-          console.log data.toString()
+          console.log "from stderr:\n#{data.toString()}"
 
 
 module.exports = System

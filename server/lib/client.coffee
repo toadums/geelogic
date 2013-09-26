@@ -15,7 +15,7 @@ class Client
   ready: (data, cb) =>
     needle.get "#{@address}/job/count", (err, res, body) =>
 
-      if res.statusCode isnt 200 then console.log "There was an error in Client.ready"
+      if not res or res.statusCode isnt 200 then console.log "There was an error in Client.ready"
       else if body.jobs is 0
         @start data
       else
