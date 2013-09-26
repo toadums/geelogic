@@ -16,21 +16,22 @@ class System
         type = job.name.substr(job.name.indexOf('.') + 1)
         switch type
           when 'js'
-            job = child.spawn "node", [job.name]
+            runningJob = child.spawn "node", [job.name]
           when 'coffee'
-            job = child.spawn "coffee", [job.name]
+            runningJob = child.spawn "coffee", [job.name]
           when 'py'
-            job = child.spawn "python", [job.name]
+            runningJob = child.spawn "python", [job.name]
 
-        job.on "exit", () =>
+        runningJob.on "exit", () =>
+          console.log "\n\n\n", job, "\n\n\n"
           job.output = @output
           @output = ""
           cb()
 
-        job.stdout.on "data", (data) =>
+        runningJob.stdout.on "data", (data) =>
           @output = "#{@output}#{data.toString()}"
 
-        job.stderr.on "data", (data) =>
+        runningJob.stderr.on "data", (data) =>
           console.log "from stderr:\n#{data.toString()}"
 
 

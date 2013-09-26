@@ -38,6 +38,11 @@ class Routes
       catch e
         console.log e
 
+    @app.get "/job/output/:name", (req, res) =>
+      res.send @queue.peek().output
+      @queue.dequeue(@queue.peek())
+      res.end()
+
     @app.get "/job/count", (req, res) =>
       res.send {jobs: 0}
       res.end()

@@ -1,4 +1,6 @@
+# NPM Includes
 async = require 'async'
+needle = require 'needle'
 
 class Routes
   constructor: (@delegate) ->
@@ -32,6 +34,12 @@ class Routes
 
     @app.get "/queue/:id", (req, res) =>
       res.send req.params.id
+
+    @app.get "/job/output/:name", (req, res) =>
+
+      needle.get "#{@clients[0].address}/job/output/#{req.params.name}", (err, response, body) =>
+        res.send body
+        res.end
 
     @app.post "/job/new", (req, res) =>
       @newJob req.body

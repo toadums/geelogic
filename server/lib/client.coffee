@@ -11,6 +11,7 @@ class Client
     # Will want to be smart eventually and make sure there are no duplicates
     @address  = data.address
     @name     = data.name
+    @tasks    = new Queue
 
   ready: (data, cb) =>
     needle.get "#{@address}/job/count", (err, res, body) =>
@@ -23,7 +24,7 @@ class Client
 
   start: (data) =>
     job = new Job(data)
-
+    @tasks.enqueue job
     needle.post "#{@address}/job/new", job, (err, response, body) =>
       console.log body
 
