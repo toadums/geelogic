@@ -1,5 +1,6 @@
 {
-  "data" : "This is test data",
-  "name" : "F1",
+  "data" :
+    "var f = 1; console.log(f);",
+  "name" : "hello.js",
   "owner" : "diddy"
 }

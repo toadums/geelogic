@@ -1,4 +1,5 @@
 # NPM Includes
+fs    = require 'fs'
 child = require 'child_process'
 
 class System
@@ -7,10 +8,13 @@ class System
 
   @run: (job, cb) =>
 
-    job = child.spawn "ls"
-    job.on "exit", cb
-    job.stdout.on "data", (data) =>
-      console.log data.toString()
+    fs.writeFile job.name, job.data, (err) =>
+      if err then console.log "Error in System.run:\n#{err}"
+      else
+        job = child.spawn "node", [job.name]
+        job.on "exit", cb
+        job.stdout.on "data", (data) =>
+          console.log data.toString()
 
 
 
