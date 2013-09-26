@@ -1,6 +1,6 @@
 {
   "data" :
-    "var f = 1; console.log(f);",
+    "var f = 112; console.log(f);",
   "name" : "hello.js",
   "owner" : "diddy"
 }
