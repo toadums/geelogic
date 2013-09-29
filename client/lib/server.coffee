@@ -31,4 +31,6 @@ app = express()
 app.use express.bodyParser()
 app.listen port
 
+console.log "App listening on port #{port}"
+
 server = new Server app

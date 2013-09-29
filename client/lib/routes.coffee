@@ -31,7 +31,6 @@ class Routes
 
       try
         if @ids.length is 0
-          console.log "full"
           res.send "Job queue full"
           res.end()
           return
@@ -77,7 +76,6 @@ class Routes
       res.end()
 
 module.exports = Routes
-
 
 
 

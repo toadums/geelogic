@@ -18,6 +18,7 @@ class Server
     # Store the IP and Name of all clients
     @clients = []
     @clients.push new Client({address: 'localhost:3001', name: "test"})
+    @clients.push new Client({address: 'localhost:3002', name: "test"})
 
     @routes = new Routes @
 
