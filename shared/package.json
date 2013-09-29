@@ -1,0 +1,17 @@
+{
+  "name": "simple-client-server",
+  "author": "Paul Demchuk <pademchuk@gmail.com>",
+  "description": "Shared folder for GEE",
+  "contributors": [
+    {
+      "name": "Paul Demchuk",
+      "email": "pademchuk@gmail.com"
+    }
+  ],
+
+  "dependencies" : {
+    "async": "*",
+    "needle": "*",
+    "underscore": "*"
+  }
+}

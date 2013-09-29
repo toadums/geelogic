@@ -20,6 +20,8 @@ class Server
     @app = app
     @server = http.createServer @app
 
+    @ids = [1..5]
+
     @queue = new Queue
 
     @routes = new Routes @

@@ -1,5 +1,6 @@
 # NPM Includes
 async = require 'async'
+_ = require 'underscore'
 
 # Our Includes
 System = require '../../shared/system'
@@ -10,7 +11,7 @@ class Routes
       @app
       @queue
       @clients
-
+      @ids
       # Methods
       @newJob
 
@@ -20,18 +21,31 @@ class Routes
 
     @app.get "/queue", (req, res) =>
 
-    @app.get "/queue/:id", (req, res) =>
-      res.send req.params.id
+      cb = (data) =>
+        res.send data
+        res.end()
+
+      @queue.humanReadable(cb)
 
     @app.post "/job/new", (req, res) =>
 
       try
+        if @ids.length is 0
+          console.log "full"
+          res.send "Job queue full"
+          res.end()
+          return
+
         job = req.body
         @queue.enqueue job
 
-        System.run job, () => @queue.dequeue job
+        System.run job, () =>
+          console.log "Job finished: #{job.name}"
 
-        console.log "Added job:", job
+        id = @ids.splice(0,1)
+        job.id = id
+
+        console.log "Added job..."
 
         res.send "Job successfully added"
         res.end()
@@ -39,8 +53,23 @@ class Routes
         console.log e
 
     @app.get "/job/output/:name", (req, res) =>
-      res.send @queue.peek().output
-      @queue.dequeue(@queue.peek())
+      job = _.find @queue.stack, (item) =>
+        item.name is req.params.name
+
+      if job
+        res.send job.output
+      else res.send "No job with name #{req.params.name}"
+      res.end()
+
+    @app.post "/job/stop/:name", (req, res) =>
+      job = _.find @queue.stack, (item) =>
+        item.name is req.params.name
+
+      if job
+        @ids = @ids.concat job.id
+        @queue.dequeue job
+        res.send "Job Deleted"
+      else res.send "No job with name #{req.params.name}"
       res.end()
 
     @app.get "/job/count", (req, res) =>
@@ -48,3 +77,7 @@ class Routes
       res.end()
 
 module.exports = Routes
+
+
+
+

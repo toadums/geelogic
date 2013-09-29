@@ -17,10 +17,10 @@ class Client
     needle.get "#{@address}/job/count", (err, res, body) =>
 
       if not res or res.statusCode isnt 200 then console.log "There was an error in Client.ready"
-      else if body.jobs is 0
-        @start data
+      else if body.jobs < 5
+        @start data # do not continue the loop
       else
-        cb()
+        cb() #continue on with the loop
 
   start: (data) =>
     job = new Job(data)

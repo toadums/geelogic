@@ -29,20 +29,25 @@ class Routes
             return
           res.send JSON.stringify myJobs
         )
-    @app.get "/queue", (req, res) =>
-      res.send "Q_Q"
 
-    @app.get "/queue/:id", (req, res) =>
-      res.send req.params.id
+    @app.get "/queue/:name", (req, res) =>
+      needle.get "#{@clients[0].address}/queue", (err, response, body) =>
+        res.send body
+        res.end()
 
     @app.get "/job/output/:name", (req, res) =>
 
       needle.get "#{@clients[0].address}/job/output/#{req.params.name}", (err, response, body) =>
         res.send body
-        res.end
+        res.end()
 
     @app.post "/job/new", (req, res) =>
       @newJob req.body
       res.end()
+
+    @app.post "/job/stop/:name", (req, res) =>
+      needle.post "#{@clients[0].address}/job/stop/#{req.params.name}", req.params.name, (err, response, body) =>
+        res.send body
+        res.end()
 
 module.exports = Routes

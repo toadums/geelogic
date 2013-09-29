@@ -23,8 +23,7 @@ class System
             runningJob = child.spawn "python", [job.name]
 
         runningJob.on "exit", () =>
-          console.log "\n\n\n", job, "\n\n\n"
-          job.output = @output
+            job.output = @output
           @output = ""
           cb()
 
