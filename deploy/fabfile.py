@@ -10,12 +10,17 @@ env.roledefs = {'machines': machines,
 
 env.key_filename = '~/.ssh/st_rsa'
 
+# this has to be set to any string (empty is fine) 
+#  or we get an odd logging error
+env.password = ''
 
 @parallel
-@roles('workers')
+@roles('machines')
 def deploy():
 	with settings(warn_only=True):
 		run('git clone %s' % (gitrepo))
+	with cd('geelogic'):
+		run('./setup.sh')
 
 
 @roles('machines')
@@ -33,6 +38,6 @@ def install_node():
 @roles('machines')
 def start_workers():
 	with cd('geelogic'):
-		run()
+		run('')
 
 

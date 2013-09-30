@@ -20,6 +20,8 @@ master = uvic[-1]
 # workers = machines.remove(master)
 workers = machines
 
+machines = [machines[0]]
+
 
 
 gitrepo = 'https://github.com/toadums/geelogic.git'
