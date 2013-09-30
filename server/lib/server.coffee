@@ -24,13 +24,22 @@ class Server
 
   newJob: (data) =>
 
-    async.each(
-      @clients
-      (client, cb) =>
-        client.ready data, cb
-      (err) =>
-        if err then console.log err
-      )
+    client = _.find @clients, (client) => client.ready data
+
+  getJobOutput: (name, res) =>
+
+    client = _.find @clients, (client) => client.getJobOutput name, res
+
+  stopJob: (name, res) =>
+    client = _.find @clients, (client) => client.stopJob name, res
+
+  printJobs: (res) =>
+    log = ""
+    _.each @clients, (client) =>
+      log += client.getQueue()
+
+    res.send log
+    res.end()
 
 port = 3000
 app = express()
