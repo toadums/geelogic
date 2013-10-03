@@ -1,0 +1,23 @@
+# Workers
+gc-1.stephen.ch-geni-net.utah.geniracks.net
+gc-2.stephen.ch-geni-net.utah.geniracks.net
+gc-3.stephen.ch-geni-net.utah.geniracks.net
+gc-4.stephen.ch-geni-net.utah.geniracks.net
+gc-1.stephen.ch-geni-net.lan.sdn.uky.edu
+gc-2.stephen.ch-geni-net.lan.sdn.uky.edu
+gc-3.stephen.ch-geni-net.lan.sdn.uky.edu
+gc-4.stephen.ch-geni-net.lan.sdn.uky.edu
+gc-1.stephen.ch-geni-net.instageni.gpolab.bbn.com
+gc-2.stephen.ch-geni-net.instageni.gpolab.bbn.com
+gc-3.stephen.ch-geni-net.instageni.gpolab.bbn.com
+gc-4.stephen.ch-geni-net.instageni.gpolab.bbn.com
+grack01.uvic.trans-cloud.net
+grack02.uvic.trans-cloud.net
+grack03.uvic.trans-cloud.net
+grack04.uvic.trans-cloud.net
+142.104.64.68
+142.104.64.71
+
+
+# Master
+grack06.uvic.trans-cloud.net
