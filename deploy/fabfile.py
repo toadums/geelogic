@@ -38,30 +38,30 @@ def install_node():
 @parallel
 @roles('workers')
 def worker_script(script):
-	with cd('geelogic/client')
+	with cd('geelogic/client'):
 		run(script)
 
-def start_workers():
-	execute(worker_script:'start.sh')
 
-def stop_workers():
-	execute(worker_script:'stop.sh')
+# def start_workers():
+# 	execute(worker_script:'start.sh')
 
-def restart_workers(): 
-	execute(worker_script:'stop.sh && start.sh')
+# def stop_workers():
+# 	execute(worker_script:'stop.sh')
+
+# def restart_workers(): 
+# 	execute(worker_script:'stop.sh && start.sh')
 
 
-@roles('master')
-def master_script(script):
-	with cd('geelogic/server')
-		run(script)
+# @roles('master')
+# def master_script(script):
+# 	with cd('geelogic/server'):
+# 		run(script)
 
-def start_master():
-	execute(master_script:'start.sh')
+# def start_master():
+# 	execute(master_script:'start.sh')
 
-def stop_master():
-	execute(master_script:'stop.sh')
+# def stop_master():
+# 	execute(master_script:'stop.sh')
 
-def restart_master():
-	execute(master_script:'stop.sh && start.sh')
-
+# def restart_master():
+# 	execute(master_script:'stop.sh && start.sh')

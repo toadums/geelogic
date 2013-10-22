@@ -26,7 +26,12 @@ def get_host_lists(hostfile="../hosts.txt"):
  		return workers, master
  	raise HostFileError('Malformed host file %s' % (hostfile))
 
+
+
 workers, master = get_host_lists()
 machines = workers + [master]
 
 gitrepo = 'https://github.com/toadums/geelogic.git'
+
+startscript = 'go.sh'
+stopscript = ''
