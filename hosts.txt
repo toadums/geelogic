@@ -19,5 +19,3 @@ grack04.uvic.trans-cloud.net
 # 142.104.64.71
 
 
-# Master
-grack06.uvic.trans-cloud.net
