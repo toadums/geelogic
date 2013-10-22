@@ -9,17 +9,22 @@ _ = require 'underscore'
 # Our Includes
 Routes = require './routes'
 Client = require './client'
+hostlist = require '../../shared/hostlist'
+#console.log hostlist.getHosts '../../hosts.txt'
 
 class Server
-  constructor: (app) ->
+  constructor: (app, hostfile) ->
     @app = app
     @server = http.createServer @app
 
     # Store the IP and Name of all clients
     @clients = []
-    @clients.push new Client({address: 'localhost:3001', name: "test"})
-    @clients.push new Client({address: 'localhost:3002', name: "test"})
-
+    hostfile = hostlist.getHosts '../../hosts.txt'
+    for h in hostfile
+      @clients.push new Client(address: h)
+    #@clients.push new Client({address: 'localhost:3001', name: "test"})
+    #@clients.push new Client({address: 'localhost:3002', name: "test"})
+    console.log @clients[0].address
     @routes = new Routes @
 
   newJob: (data) =>

@@ -1,8 +1,8 @@
 
 fs = require 'fs'
 
-getHosts =  (hostfile) =>
-	hostlist = parseHostFile(fs.readFileSync hostfile, 'utf8')
+module.exports.getHosts =  (hostfile) =>
+	parseHostFile(fs.readFileSync hostfile, 'utf8')
 
 parseHostFile = (data) =>
 	# may want to throw an error if data is fked
@@ -11,5 +11,3 @@ parseHostFile = (data) =>
 		if l.charAt(0) isnt '#' and l.trim() isnt ''
 			hostlist.push l
 	hostlist
-
-console.log(getHosts '../hosts.txt')

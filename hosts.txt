@@ -15,7 +15,5 @@ grack01.uvic.trans-cloud.net
 grack02.uvic.trans-cloud.net
 grack03.uvic.trans-cloud.net
 grack04.uvic.trans-cloud.net
-# 142.104.64.68
-# 142.104.64.71
-
-
+142.104.64.68
+142.104.64.71
