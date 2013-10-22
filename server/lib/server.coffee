@@ -15,16 +15,55 @@ class Server
     @app = app
     @server = http.createServer @app
 
+    @maxJobs = 5
+
     # Store the IP and Name of all clients
     @clients = []
     @clients.push new Client({address: 'localhost:3001', name: "test"})
-    @clients.push new Client({address: 'localhost:3002', name: "test"})
+    #@clients.push new Client({address: 'localhost:3002', name: "test"})
 
+    @overflowTasks = []
+    @checkOverflow()
     @routes = new Routes @
 
   newJob: (data) =>
+    min = @clients[0]
 
-    client = _.find @clients, (client) => client.ready data
+    async.each(
+      @clients
+      (client, cb) =>
+        if client.tasks.length < min.tasks.length
+          min = client
+        cb()
+      (err) =>
+        if err then console.log "Error in newJob: #{err}"
+        else
+          if min.tasks.length >= @maxJobs
+            @overflowTasks.push data
+            console.log "here"
+          else min.start data
+    )
+
+
+  checkOverflow: () =>
+    if @overflowTasks.length > 0
+      min = @clients[0]
+
+      async.each(
+        @clients
+        (client, cb) =>
+          if client.tasks.length < min.tasks.length
+            min = client
+          cb()
+        (err) =>
+          if err then console.log "Error in newJob: #{err}"
+          else
+            return if min.tasks.length >= @maxJobs
+            min.start @overflowTasks[0]
+            @overflowTasks.splice(0,1)
+      )
+
+    setTimeout @checkOverflow, 2000
 
   getJobOutput: (name, res) =>
 

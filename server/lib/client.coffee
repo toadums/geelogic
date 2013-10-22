@@ -10,15 +10,9 @@ class Client
 
     # Will want to be smart eventually and make sure there are no duplicates
     @address  = data.address
-    @name     = data.name
+    @name     = data.name or data.address
 
     @tasks    = []
-
-  ready: (data) =>
-    if @tasks.length < 5
-      @start data
-      true
-    else false
 
   start: (data) =>
     job = new Job(data)
